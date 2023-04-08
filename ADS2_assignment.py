@@ -108,6 +108,27 @@ def barplot(df,lab1,lab2):
     else:
         plt.savefig("barplot_2.png")
     plt.show()
+    
+def co2_emmision_mean():   
+  """
+  
+  Function to calculate the mean of population growth for 5 countries
+
+  """
+  dataf1,dataf2 =get_data("co2_emm.csv")
+  data=dataf1.set_index('Country Name')
+  transpose=data.transpose()
+  #Droping unneccessary columns
+  transpose=transpose.drop(index='Indicator Code')
+  transpose=transpose.drop(index='Indicator Name')  
+  transpose=transpose.drop(index='Country Code')
+  clean_data=transpose.fillna(0)
+  mean=clean_data[["Brazil", "China", "Canada", "Denmark", "Finland", "Italy"]].mean()
+  
+  mean = (mean/mean.sum())*100
+  mean = mean.round(1)
+  return mean
+    
 
 temp1 = 0
 temp2 = 0
@@ -134,3 +155,6 @@ barplot(lit_rate, 'Literacy Rate', 'Literacy Rate')
 temp2 += 1
 barplot(unemp_rate, 'Unemployment percentage', 'Unemployment percentage')
 
+co2_emmision_mean = co2_emmision_mean()
+print(co2_emmision_mean)
+co2_emmision_mean = co2_emmision_mean.to_csv("mean_percentage_of_co2_emmision.csv")
