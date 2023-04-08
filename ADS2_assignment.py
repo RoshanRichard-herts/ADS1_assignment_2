@@ -10,6 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
+
 def get_data(filename):
     """ 
     This function takes filename as argument and
@@ -36,7 +37,7 @@ def filter_line_plot(data):
     return data
 
 def line_plot(data, label1, label2):
-    plt.figure(figsize=(26, 10))
+    plt.figure(figsize=(15, 10))
     data_index=data.set_index('Country Name')
     transpose_data=data_index.transpose()
     transpose_data=transpose_data.drop(index=['Indicator Name'])
@@ -47,14 +48,23 @@ def line_plot(data, label1, label2):
     plt.ylabel(label1, size=12)
     plt.xticks(rotation=90)
     plt.legend(fontsize=10)
-    plt.savefig("lineplot.png")#Saving Lineplot
+    if temp:
+        plt.savefig("lineplot_1.png")#Saving Lineplot
+    else:
+        plt.savefig("lineplot_2.png")
     plt.show()
 
+temp = 0
 country_list =['Denmark', 'China', 'Germany', 'India', 'Spain', 'United States']
 
 co2_data, cos_data_Transpose = get_data('co2_emm.csv')
-co2_data = filter_line_plot(co2_data)
-line_plot(co2_data, "CO2 Emission ", "CO2 Emission")
+energy_cons, energy_cons_Transpose = get_data('energy_con.csv')
 
+co2_data = filter_line_plot(co2_data)
+energy_cons = filter_line_plot(energy_cons)
+
+line_plot(co2_data, "CO2 Emission ", "CO2 Emission")
+temp += 1
+line_plot(energy_cons, "Energy Consuption", "Energy Consuption")
 
 
