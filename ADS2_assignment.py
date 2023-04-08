@@ -158,3 +158,5 @@ barplot(unemp_rate, 'Unemployment percentage', 'Unemployment percentage')
 co2_emmision_mean = co2_emmision_mean()
 print(co2_emmision_mean)
 co2_emmision_mean = co2_emmision_mean.to_csv("mean_percentage_of_co2_emmision.csv")
+
+print(co2_data.describe())
